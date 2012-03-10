@@ -35,6 +35,7 @@ import org.json.JSONObject;
 import wowDatatypes.Spell;
 import wowDatatypes.SpellStats;
 import wowhead_itemreader.core.MangosSheme;
+import wowhead_itemreader.core.SkyfireSheme;
 
 public class WoWHeadData
 {
@@ -143,6 +144,9 @@ public class WoWHeadData
     public int cooldown;
     public int itemstatscount;
     public int bonding;
+    public int healthrgn;
+    public int rgdatkpwr;
+    public int rgdcritstrkrtng;
     
     // unused
     public int mastrtng;
@@ -244,8 +248,7 @@ public class WoWHeadData
     
     private void doSpellStats()
     {
-        double[][] spellStats = {{stamina, strength, agility, intellect, spirit, itemParry, itemDef, attackPower, critStr, hitRat, hasteRat, armorDurch, spellPower, block, blockRat, dodgeRat, resiRat, expRat, splPen, manaReg, mastrtng}, 
-                                { SpellStats.STAMINA,SpellStats.STRENGTH,SpellStats.AGILITY,SpellStats.INTELLECT,SpellStats.SPIRIT,SpellStats.PARRY_RATING,SpellStats.DEFENSE_RATING,SpellStats.ATTACK_POWER,SpellStats.CRITICAL_STRIKE_RATING,SpellStats.HIT_RATING,SpellStats.HASTE_RATING,SpellStats.ARMOR_PENETRATION_RATING,SpellStats.SPELL_POWER,SpellStats.BLOCK_VALUE,SpellStats.SHIELD_BLOCK_RATING,SpellStats.DODGE_RATING,SpellStats.RESILIENCE_RATING,SpellStats.EXPERTISE_RATING_2,SpellStats.SPELL_PENETRATION,SpellStats.MANA_REGENERATION, SpellStats.EXPERTISE_RATING}};
+        double[][] spellStats = SpellStats.getValues(this);
         spellStats = delTrashSpellStats(spellStats);
         this.spellStatsAr = new SpellStats[10];
         for(int i = 0; i<spellStatsAr.length; i++)
@@ -524,7 +527,13 @@ public class WoWHeadData
             setJsonValue("manaReg", (getJsonValue(object,"manargn")),  PARSEINT);
             setJsonValue("heroic", (getJsonValue(object,"heroic")), PARSEINT);
             setJsonValue("mastrtng", (getJsonValue(object,"mastrtng")), PARSEINT);
+            setJsonValue("healthrgn", (getJsonValue(object,"healthrgn")), PARSEINT);
+            setJsonValue("rgdatkpwr", (getJsonValue(object,"rgdatkpwr")), PARSEINT);
+            setJsonValue("rgdcritstrkrtng", (getJsonValue(object,"rgdcritstrkrtng")), PARSEINT);
             
+            
+            this.attSpeed = this.attSpeed*1000D;
+            this.mlespeed = this.mlespeed*1000D;
         } catch (JSONException ex)
         {
             Logger.getLogger(WoWHeadData.class.getName()).log(Level.SEVERE, null, ex);
@@ -634,6 +643,9 @@ public class WoWHeadData
             case 1:
             case 2:
                 sheme = new MangosSheme();
+                break;
+            case 3:
+                sheme = new SkyfireSheme();
                 break;
         }
         return sheme.getQuery(this);

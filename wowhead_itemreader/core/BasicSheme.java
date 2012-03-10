@@ -91,4 +91,16 @@ public abstract class BasicSheme implements Sheme
         }
         return sb.toString();
     }
+    
+    protected int getSocketAmount(WoWHeadData data, int socketColor)
+    {
+        if(socketColor == 0)return 0;
+        int socketCount = data.nsockets;
+        if(socketCount == 0)return 0;
+        int amount = 0;
+        if(data.socket_color1 == socketColor)amount++;
+        if(data.socket_color2 == socketColor)amount++;
+        if(data.socket_color3 == socketColor)amount++;
+        return amount;
+    }
 }

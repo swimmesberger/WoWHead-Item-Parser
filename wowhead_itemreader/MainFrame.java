@@ -309,7 +309,7 @@ public class MainFrame extends javax.swing.JFrame
             }
         });
 
-        coreComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ArcEmu", "Mangos", "Trinity" }));
+        coreComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ArcEmu", "Mangos", "Trinity", "Skyfire" }));
 
         addedInBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NONE", "Added in patch 4.2.0", "Added in patch 4.1.0", "Added in patch 3.3.5", "No Cataclysm" }));
 
