@@ -39,24 +39,30 @@ public class Util
         return replaceAll;
     }
     
-        public static ModelViewer createModelViewer(Component parent, int id)
+        public static ModelViewer createModelViewer(Component parent, int id, int slot)
     {
         String idS = String.valueOf(id);
         if(id == -1)
         {
             idS = null;
         }
-        final ModelViewer modelViewer = new ModelViewer(MainFrame.mainDir, "http://static.wowhead.com/modelviewer/", idS, "#181818", null, 1, false, null, null, null, null, null, null, null, "Stand");
+        int modelType = 128;
+        if(slot == 13 || slot == 14 || slot == 15 || slot == 26 || slot == 17 || slot == 21 || slot == 22)
+        {
+            modelType = 1;
+        }
+        final ModelViewer modelViewer = new ModelViewer(MainFrame.mainDir, "http://static.wowhead.com/modelviewer/", idS, "#181818", slot + "," + id, modelType, false, null, null, null, null, null, null, null, "Stand");
         modelViewer.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         modelViewer.setSize(new Dimension(600, 400));
+        modelViewer.setTitle("ItemViewer - " + id);
         return modelViewer;
     }
     
-    public static ModelViewer showModelViewer(Component parent, int id)
+    public static ModelViewer showModelViewer(Component parent, int id, int slot)
     {
         try
         {
-            ModelViewer modelViewer = Util.createModelViewer(parent, id);
+            ModelViewer modelViewer = Util.createModelViewer(parent, id, slot);
             modelViewer.init();
             modelViewer.setLocationRelativeTo(parent); 
             modelViewer.setVisible(true);

@@ -42,7 +42,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
-import org.fseek.modelview.ModelViewer;
 
 /**
  *
@@ -84,6 +83,7 @@ public class MainFrame extends javax.swing.JFrame
         setWoWHeadLink(null);
         intListener();
         this.pack();
+        setLocationRelativeTo(null);
     }
     
     private void intListener()
@@ -318,7 +318,7 @@ public class MainFrame extends javax.swing.JFrame
             }
         });
 
-        coreComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ArcEmu", "Mangos", "Trinity" }));
+        coreComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ArcEmu", "Mangos", "Trinity", "Skyfire" }));
 
         addedInBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NONE", "Added in patch 4.2.0", "Added in patch 4.1.0", "Added in patch 3.3.5", "No Cataclysm" }));
 
@@ -601,10 +601,11 @@ public class MainFrame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_viewIn3DButtonActionPerformed
         if(items == null || items.isEmpty())
         {
-            Util.showModelViewer(this, -1);
+            Util.showModelViewer(this, -1, -1);
             return;
         }
-        Util.showModelViewer(this, items.get(items.size()-1).itemDisplayId);
+        WoWHeadData get = items.get(items.size()-1);
+        Util.showModelViewer(this, get.itemDisplayId, get.inventoryType);
     }//GEN-LAST:event_viewIn3DButtonActionPerformed
 
     private void manipulateChooserDirectory(JFileChooser chooser)
