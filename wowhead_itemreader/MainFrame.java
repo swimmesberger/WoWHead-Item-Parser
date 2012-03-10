@@ -36,17 +36,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
+import org.fseek.modelview.ModelViewer;
 
 /**
  *
@@ -155,6 +151,7 @@ public class MainFrame extends javax.swing.JFrame
         jPanel1 = new GrafikPanel(new javax.swing.ImageIcon(getClass().getResource("/wowhead_itemreader/resources/default.png")));
         picture = new javax.swing.JLabel();
         wowHeadLink = new javax.swing.JLabel();
+        viewIn3DButton = new javax.swing.JButton();
         leftPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         queryPane = new javax.swing.JEditorPane();
@@ -179,10 +176,10 @@ public class MainFrame extends javax.swing.JFrame
 
         logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wowhead_itemreader/resources/home.png"))); // NOI18N
 
-        titlePanel.setFont(new java.awt.Font("Tahoma", 0, 18));
+        titlePanel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         titlePanel.setText("WOWHead ItemReader:");
 
-        sourceLabel.setFont(new java.awt.Font("Tahoma", 0, 10));
+        sourceLabel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         sourceLabel.setText("Source:");
 
         homepageLabel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -231,6 +228,13 @@ public class MainFrame extends javax.swing.JFrame
             }
         });
 
+        viewIn3DButton.setText("View in 3D");
+        viewIn3DButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewIn3DButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout rightPanelLayout = new javax.swing.GroupLayout(rightPanel);
         rightPanel.setLayout(rightPanelLayout);
         rightPanelLayout.setHorizontalGroup(
@@ -238,12 +242,15 @@ public class MainFrame extends javax.swing.JFrame
             .addGroup(rightPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                    .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
                     .addGroup(rightPanelLayout.createSequentialGroup()
                         .addGroup(rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(idField, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                            .addComponent(nameField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                            .addComponent(wowHeadLink, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
+                            .addComponent(idField, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                            .addComponent(nameField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                            .addGroup(rightPanelLayout.createSequentialGroup()
+                                .addComponent(wowHeadLink, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(viewIn3DButton)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -257,10 +264,12 @@ public class MainFrame extends javax.swing.JFrame
                         .addGap(18, 18, 18)
                         .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(wowHeadLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(wowHeadLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(viewIn3DButton)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                .addComponent(scrollPanel)
                 .addContainerGap())
         );
 
@@ -309,7 +318,7 @@ public class MainFrame extends javax.swing.JFrame
             }
         });
 
-        coreComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ArcEmu", "Mangos", "Trinity", "Skyfire" }));
+        coreComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ArcEmu", "Mangos", "Trinity" }));
 
         addedInBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NONE", "Added in patch 4.2.0", "Added in patch 4.1.0", "Added in patch 3.3.5", "No Cataclysm" }));
 
@@ -320,7 +329,7 @@ public class MainFrame extends javax.swing.JFrame
             .addGroup(leftPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(leftPanelLayout.createSequentialGroup()
                         .addGroup(leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(leftPanelLayout.createSequentialGroup()
@@ -344,7 +353,7 @@ public class MainFrame extends javax.swing.JFrame
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(deepCheckBox))
                             .addComponent(addedInBox, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(leftPanelLayout.createSequentialGroup()
                         .addGap(105, 105, 105)
                         .addComponent(startButton)
@@ -413,8 +422,8 @@ public class MainFrame extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                                .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                                .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
                             .addComponent(rightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -587,6 +596,16 @@ public class MainFrame extends javax.swing.JFrame
             JOptionPane.showMessageDialog(this, "Saved succesfully !");
         }
     }//GEN-LAST:event_saveToFileButtonActionPerformed
+
+    private void viewIn3DButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_viewIn3DButtonActionPerformed
+    {//GEN-HEADEREND:event_viewIn3DButtonActionPerformed
+        if(items == null || items.isEmpty())
+        {
+            Util.showModelViewer(this, -1);
+            return;
+        }
+        Util.showModelViewer(this, items.get(items.size()-1).itemDisplayId);
+    }//GEN-LAST:event_viewIn3DButtonActionPerformed
 
     private void manipulateChooserDirectory(JFileChooser chooser)
     {
@@ -882,27 +901,7 @@ public class MainFrame extends javax.swing.JFrame
     
     private static File getMainPath()
     {
-        String path = MainFrame.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-        while(path.contains("%20"))
-        {
-            path = path.replace("%20", " ");
-        }
-        File mainFileT = new File(path);
-        String absolutePath = null;
-        try
-        {
-            absolutePath = mainFileT.getCanonicalPath();
-            if (absolutePath.contains(".jar"))
-            {
-                int index = absolutePath.lastIndexOf(File.separator);
-                absolutePath = absolutePath.substring(0, index);
-            }
-        } catch (IOException ex)
-        {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-            System.exit(1);
-        }
-        return new File(absolutePath);
+        return Util.cleanMainPath();
     }
     
     public int getCore()
@@ -961,6 +960,7 @@ public class MainFrame extends javax.swing.JFrame
     private javax.swing.JLabel titlePanel;
     private javax.swing.JTextField toField;
     private javax.swing.JLabel toLabel;
+    public javax.swing.JButton viewIn3DButton;
     private javax.swing.JLabel wowHeadLink;
     // End of variables declaration//GEN-END:variables
 }

@@ -111,6 +111,7 @@ public class SearchThread extends Thread
             wowhead.repaint();
             wowhead.setWoWHeadLink(head.url);
             JOptionPane.showMessageDialog(wowhead,"Succeed !");
+            wowhead.viewIn3DButton.setEnabled(true);
             wowhead.threadFinished();
         }
         else
